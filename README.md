@@ -7,6 +7,20 @@ a **fully synthetic dataset calibrated to reproduce the statistical structure of
 a real utility's data**, without containing any real customer record or real
 infrastructure location.
 
+## Datasets
+
+Quick links to the synthetic data itself:
+
+- [`state/customer_history/`](state/customer_history/) — account-level daily consumption panel (9,000 fictional accounts, 2023–2026, monthly parquet files)
+- [`state/entry_point_history.parquet`](state/entry_point_history.parquet) — master-meter daily aggregate input (system A)
+- [`production_history.csv`](production_history.csv) — SCADA finished-water production (system B)
+- [`state/meter_zone_map.parquet`](state/meter_zone_map.parquet) — account → pressure-zone / system mapping
+- [`state/gis/pressure_zones.shp`](state/gis/pressure_zones.shp) — fictional pressure-zone shapefile (+ `.dbf`/`.shx`/`.prj`)
+- [`config.yaml`](config.yaml) — fictional master-meter site table, pricing tiers, model config
+- [`state/weather_cache.csv`](state/weather_cache.csv) — real public NOAA weather data used to drive the synthetic demand series
+
+All `.parquet` files are stored via Git LFS — `git clone` resolves them automatically; the "Raw" button on GitHub shows only the LFS pointer, not the data.
+
 ## What this is
 
 The analysis code here (causal inference, clustering, forecasting, water-audit
