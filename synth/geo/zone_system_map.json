@@ -1,0 +1,22 @@
+{
+  "R-Ironwood": "system_b",
+  "J-Sandhill": "system_b",
+  "Q-Harrier": "system_b",
+  "E-Pinyon": "system_a",
+  "K-Talus": "system_b",
+  "A-Bluestem": "system_a",
+  "L-Windrow": "system_b",
+  "I-Vireo": "system_b",
+  "P-Limestone": "system_b",
+  "B-Foxglove": "system_a",
+  "F-Juniper": "system_a",
+  "T-Cinder": "system_b",
+  "D-Umber": "system_b",
+  "S-Kestrel": "system_b",
+  "C-Larkspur": "system_a",
+  "H-Granite": "system_b",
+  "M-Wildrose": "system_b",
+  "O-Antler": "system_b",
+  "G-Obsidian": "system_b",
+  "N-Nighthawk": "system_b"
+}

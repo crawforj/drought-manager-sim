@@ -1,0 +1,219 @@
+- id: wtp_plant
+  kind: scada
+  label: Antler Creek, CO WTP -- SCADA finished-water feed
+- id: site_001
+  kind: beacon
+  label: DW Master Meter - 3430 Talus Rd, Antler Creek, CO
+  role: dw_master
+  beacon_account: '6219292303'
+  meter_id: '14240648'
+- id: site_002
+  kind: beacon
+  label: DW Master Meter - 9007 Ironwood Ln, Antler Creek, CO
+  role: dw_master
+  beacon_account: '7859485725'
+  meter_id: '42765003'
+- id: site_003
+  kind: beacon
+  label: DW Master Meter - 9653 Yarrow Pl, Antler Creek, CO
+  role: dw_master
+  beacon_account: '2608573751'
+  meter_id: '88658225'
+- id: site_004
+  kind: beacon
+  label: DW Master Meter - 8008 Quartz Ct, Antler Creek, CO
+  role: dw_master
+  beacon_account: '5883339312'
+  meter_id: '82479112'
+- id: site_005
+  kind: beacon
+  label: DW Master Meter - 403 Ridgeline Way, Antler Creek, CO
+  role: dw_master
+  beacon_account: '3878532730'
+  meter_id: '95251324'
+- id: site_006
+  kind: beacon
+  label: DW Master Meter - 8791 Umber St, Antler Creek, CO
+  role: dw_master
+  beacon_account: '6370276558'
+  meter_id: '55467994'
+- id: site_007
+  kind: beacon
+  label: Retired Meter - 2347 Obsidian St, Antler Creek, CO
+  role: retired
+  beacon_account: '1686169893'
+  meter_id: '58484115'
+- id: site_008
+  kind: beacon
+  label: DW Master Meter - 1037 Nighthawk Way, Antler Creek, CO
+  role: dw_master
+  beacon_account: '8445666443'
+  meter_id: '29742460'
+- id: site_009
+  kind: beacon
+  label: Retired Meter - 7931 Windrow Ct, Antler Creek, CO
+  role: retired
+  beacon_account: '1758073844'
+  meter_id: '85990135'
+- id: site_010
+  kind: beacon
+  label: DW Master Meter - 3032 Sandhill Ave, Antler Creek, CO
+  role: dw_master
+  beacon_account: '3164796033'
+  meter_id: '21442958'
+- id: site_011
+  kind: beacon
+  label: DW Master Meter - 977 Ironwood Pl, Antler Creek, CO
+  role: dw_master
+  beacon_account: '7909196209'
+  meter_id: '48644621'
+- id: site_012
+  kind: beacon
+  label: Retired Meter - 2358 Bramble St, Antler Creek, CO
+  role: retired
+  beacon_account: '3547703127'
+  meter_id: '86579810'
+- id: site_013
+  kind: beacon
+  label: Retired Meter - 5794 Meadowlark Ln, Antler Creek, CO
+  role: retired
+  beacon_account: '6944433628'
+  meter_id: '54710297'
+- id: site_014
+  kind: beacon
+  label: DW Master Meter - 4466 Sandhill Way, Antler Creek, CO
+  role: dw_master
+  beacon_account: '3432277292'
+  meter_id: '27885385'
+- id: site_015
+  kind: beacon
+  label: DW Submeter Meter - 5213 Pinyon Ave, Antler Creek, CO
+  role: dw_submeter
+  beacon_account: '9150962056'
+  meter_id: '34382495'
+- id: site_016
+  kind: beacon
+  label: DW Master Meter - 1400 Talus Ave, Antler Creek, CO
+  role: dw_master
+  beacon_account: '5818924649'
+  meter_id: '13016522'
+- id: site_017
+  kind: beacon
+  label: DW Master Meter - 6344 Dovetail St, Antler Creek, CO
+  role: dw_master
+  beacon_account: '7184632065'
+  meter_id: '65164874'
+- id: site_018
+  kind: beacon
+  label: DW Master Meter - 6439 Foxtail Dr, Antler Creek, CO
+  role: dw_master
+  beacon_account: '5264298683'
+  meter_id: '80276776'
+- id: site_019
+  kind: beacon
+  label: Emergency Interconnect Meter - 9551 Nighthawk Ln, Antler Creek, CO
+  role: emergency
+  beacon_account: '8307433676'
+  meter_id: '88471297'
+- id: site_020
+  kind: beacon
+  label: DW Master Meter - 737 Sandhill Way, Antler Creek, CO
+  role: dw_master
+  beacon_account: '8654962135'
+  meter_id: '95211937'
+- id: site_021
+  kind: beacon
+  label: DW Master Meter - 8388 Larkspur Ln, Antler Creek, CO
+  role: dw_master
+  beacon_account: '7638431932'
+  meter_id: '70188882'
+- id: site_022
+  kind: beacon
+  label: DW Master Meter - 4643 Ridgeline St, Antler Creek, CO
+  role: dw_master
+  beacon_account: '1209207617'
+  meter_id: '51996545'
+- id: site_023
+  kind: beacon
+  label: Emergency Interconnect Meter - 8493 Obsidian Ct, Antler Creek, CO
+  role: emergency
+  beacon_account: '2291249423'
+  meter_id: '19518635'
+- id: site_024
+  kind: beacon
+  label: DW Master Meter - 3821 Umber Ln, Antler Creek, CO
+  role: dw_master
+  beacon_account: '1736568860'
+  meter_id: '82119580'
+- id: site_025
+  kind: beacon
+  label: DW Master Meter - 6276 Talus Ct, Antler Creek, CO
+  role: dw_master
+  beacon_account: '4788792246'
+  meter_id: '52496819'
+- id: site_026
+  kind: beacon
+  label: DW Master Meter - 7749 Larkspur Ct, Antler Creek, CO
+  role: dw_master
+  beacon_account: '2383821898'
+  meter_id: '68816225'
+- id: site_027
+  kind: beacon
+  label: DW Master Meter - 3260 Cinderpath Ln, Antler Creek, CO
+  role: dw_master
+  beacon_account: '5951562875'
+  meter_id: '91522249'
+- id: site_028
+  kind: beacon
+  label: DW Master Meter - 7998 Kestrel Ln, Antler Creek, CO
+  role: dw_master
+  beacon_account: '1950242252'
+  meter_id: '10728577'
+- id: site_029
+  kind: beacon
+  label: MG Internal Meter - 7243 Granite Ave, Antler Creek, CO
+  role: mg_internal
+  beacon_account: '4234931166'
+  meter_id: '36264988'
+- id: site_030
+  kind: beacon
+  label: MG Internal Meter - 4068 Windrow Dr, Antler Creek, CO
+  role: mg_internal
+  beacon_account: '3328395266'
+  meter_id: '16928747'
+- id: site_031
+  kind: beacon
+  label: DW Master Meter - 607 Cinderpath Way, Antler Creek, CO
+  role: dw_master
+  beacon_account: '1657101920'
+  meter_id: '64913346'
+- id: site_032
+  kind: beacon
+  label: DW Submeter Meter - 1197 Harrier Ln, Antler Creek, CO
+  role: dw_submeter
+  beacon_account: '8499797879'
+  meter_id: '92112568'
+- id: site_033
+  kind: beacon
+  label: Retired Meter - 5325 Harrier Rd, Antler Creek, CO
+  role: retired
+  beacon_account: '5279337981'
+  meter_id: '36967251'
+- id: site_034
+  kind: beacon
+  label: DW Master Meter - 3846 Bramble Dr, Antler Creek, CO
+  role: dw_master
+  beacon_account: '9095604504'
+  meter_id: '14922969'
+- id: site_035
+  kind: beacon
+  label: DW Master Meter - 780 Bramble Rd, Antler Creek, CO
+  role: dw_master
+  beacon_account: '3031666495'
+  meter_id: '34012034'
+- id: site_036
+  kind: beacon
+  label: DW Submeter Meter - 6159 Elkhorn Ct, Antler Creek, CO
+  role: dw_submeter
+  beacon_account: '9384683176'
+  meter_id: '94620299'

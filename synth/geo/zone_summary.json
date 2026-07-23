@@ -1,0 +1,130 @@
+{
+  "n_zones": 20,
+  "system_a_label": "Ridgeline",
+  "system_a_count": 5,
+  "system_b_label": "Cottonwood",
+  "system_b_count": 15,
+  "total_acreage": 14245.0,
+  "zones": [
+    {
+      "name": "R-Ironwood",
+      "system": "system_b",
+      "acreage": 3382.0,
+      "hgl_ft": 5735
+    },
+    {
+      "name": "J-Sandhill",
+      "system": "system_b",
+      "acreage": 1804.0,
+      "hgl_ft": 5905
+    },
+    {
+      "name": "Q-Harrier",
+      "system": "system_b",
+      "acreage": 1649.0,
+      "hgl_ft": 5660
+    },
+    {
+      "name": "E-Pinyon",
+      "system": "system_a",
+      "acreage": 1470.0,
+      "hgl_ft": 6115
+    },
+    {
+      "name": "K-Talus",
+      "system": "system_b",
+      "acreage": 1277.0,
+      "hgl_ft": 6220
+    },
+    {
+      "name": "A-Bluestem",
+      "system": "system_a",
+      "acreage": 771.0,
+      "hgl_ft": 6130
+    },
+    {
+      "name": "L-Windrow",
+      "system": "system_b",
+      "acreage": 531.0,
+      "hgl_ft": 5850
+    },
+    {
+      "name": "I-Vireo",
+      "system": "system_b",
+      "acreage": 523.0,
+      "hgl_ft": 6025
+    },
+    {
+      "name": "P-Limestone",
+      "system": "system_b",
+      "acreage": 426.0,
+      "hgl_ft": 5815
+    },
+    {
+      "name": "B-Foxglove",
+      "system": "system_a",
+      "acreage": 372.0,
+      "hgl_ft": 6315
+    },
+    {
+      "name": "F-Juniper",
+      "system": "system_a",
+      "acreage": 344.0,
+      "hgl_ft": 5920
+    },
+    {
+      "name": "T-Cinder",
+      "system": "system_b",
+      "acreage": 329.0,
+      "hgl_ft": 6245
+    },
+    {
+      "name": "D-Umber",
+      "system": "system_b",
+      "acreage": 316.0,
+      "hgl_ft": 6110
+    },
+    {
+      "name": "S-Kestrel",
+      "system": "system_b",
+      "acreage": 208.0,
+      "hgl_ft": 5910
+    },
+    {
+      "name": "C-Larkspur",
+      "system": "system_a",
+      "acreage": 195.0,
+      "hgl_ft": 5935
+    },
+    {
+      "name": "H-Granite",
+      "system": "system_b",
+      "acreage": 195.0,
+      "hgl_ft": 6005
+    },
+    {
+      "name": "M-Wildrose",
+      "system": "system_b",
+      "acreage": 169.0,
+      "hgl_ft": 6240
+    },
+    {
+      "name": "O-Antler",
+      "system": "system_b",
+      "acreage": 149.0,
+      "hgl_ft": 6000
+    },
+    {
+      "name": "G-Obsidian",
+      "system": "system_b",
+      "acreage": 135.0,
+      "hgl_ft": 5675
+    },
+    {
+      "name": "N-Nighthawk",
+      "system": "system_b",
+      "acreage": 0.0,
+      "hgl_ft": 5830
+    }
+  ]
+}
