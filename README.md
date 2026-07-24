@@ -73,16 +73,16 @@ it locally.
 <!-- VALIDATION_TABLE_START -->
 | Metric | Real | Synthetic |
 |---|---:|---:|
-| Price-elasticity DiD: tier1 step (% of weather-expected demand) | -10.2% | -14.1% |
-| Price-elasticity DiD: tier2/3 step (% of weather-expected demand) | -9.7% | -14.9% |
+| Price-elasticity DiD: tier1 step (% of weather-expected demand) | -10.2% | -14.9% |
+| Price-elasticity DiD: tier2/3 step (% of weather-expected demand) | -9.7% | -15.1% |
 | DiD effect sign / significance | negative, p=0.033 (significant) | negative, p=0.0000 (significant) |
-| Segmentation: top-consumers volume share | 1.0% of accounts → 25.5% of volume | 1.0% → 26.0% |
-| Segmentation: vacant/intermittent share | 3.2% | 3.4% |
+| Segmentation: top-consumers volume share | 1.0% of accounts → 25.5% of volume | 1.0% → 25.6% |
+| Segmentation: vacant/intermittent share | 3.2% | 3.1% |
 | Segmentation cluster count (k) | 3 | 2 |
-| NRW correlation, system A (master-meter-summed input) | 0.988 | 0.988 |
-| NRW correlation, system B (WTP production input) | 0.939 | 0.919 |
+| NRW correlation, system A (master-meter-summed input) | 0.988 | 0.989 |
+| NRW correlation, system B (WTP production input) | 0.939 | 0.916 |
 | Demand forecast series: mean (MGD) | 10.7 | 4.3 |
-| Demand forecast series: autocorrelation (lag 1 / 7 / 14) | 0.64 / 0.62 / 0.60 | 0.69 / 0.48 / 0.52 |
+| Demand forecast series: autocorrelation (lag 1 / 7 / 14) | 0.64 / 0.62 / 0.60 | 0.72 / 0.47 / 0.54 |
 <!-- VALIDATION_TABLE_END -->
 
 *Last refreshed: see the commit history of this file — every refresh commits
