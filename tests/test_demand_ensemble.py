@@ -1,4 +1,4 @@
-"""Regression tests for the CC-DIDS ensemble, grown from the 2026-07-18
+"""Regression tests for the demand forecast ensemble, grown from real bugs found live
 code-review verification repros. Everything runs on synthetic data — no
 network, no repo state/ — so CI can run them on a bare checkout.
 """
@@ -10,11 +10,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from ccdids.calibration import apply as cal_apply
-from ccdids.covariates import calendar_features, parse_holidays
-from ccdids.datasets import (StageSpan, _ami_system_daily, _interp_short_gaps,
+from demand_ensemble.calibration import apply as cal_apply
+from demand_ensemble.covariates import calendar_features, parse_holidays
+from demand_ensemble.datasets import (StageSpan, _ami_system_daily, _interp_short_gaps,
                              stage_history, stage_on)
-from ccdids.drought_adjustment import apply_adjustment
+from demand_ensemble.drought_adjustment import apply_adjustment
 
 COEFFS = {
     "none":   {"f_p5": 0.08, "f_p50": 0.12, "f_p95": 0.17},
@@ -79,7 +79,7 @@ def test_stale_store_refuses_to_run(tmp_path):
 # ── stage timeline ───────────────────────────────────────────────────────────
 
 def test_open_span_shadowing_rejected():
-    cfg = {"ccdids": {"stage_history": [
+    cfg = {"demand_ensemble": {"stage_history": [
         {"stage": "orange", "start": "2026-04-01", "end": None},
         {"stage": "red", "start": "2026-08-01", "end": None}]}}
     with pytest.raises(ValueError, match="open-ended"):
@@ -87,7 +87,7 @@ def test_open_span_shadowing_rejected():
 
 
 def test_overlapping_spans_rejected():
-    cfg = {"ccdids": {"stage_history": [
+    cfg = {"demand_ensemble": {"stage_history": [
         {"stage": "orange", "start": "2026-04-01", "end": "2026-08-01"},
         {"stage": "red", "start": "2026-08-01", "end": None}]}}
     with pytest.raises(ValueError, match="overlap"):
@@ -95,7 +95,7 @@ def test_overlapping_spans_rejected():
 
 
 def test_valid_timeline_and_stage_on():
-    cfg = {"ccdids": {"stage_history": [
+    cfg = {"demand_ensemble": {"stage_history": [
         {"stage": "orange", "start": "2026-04-01", "end": "2026-07-31"},
         {"stage": "red", "start": "2026-08-01", "end": None}]}}
     spans = stage_history(cfg)
@@ -183,7 +183,7 @@ def test_calibration_scales_halfwidths():
 
 @pytest.mark.slow
 def test_svm_gap_adjacent_anchor():
-    from ccdids.svm_primary import fit_and_forecast_svm
+    from demand_ensemble.svm_primary import fit_and_forecast_svm
     rng = np.random.default_rng(0)
     days = pd.date_range("2024-06-01", "2026-07-10", freq="D")
     y = pd.Series(10 + 3 * np.sin(2 * np.pi * np.arange(len(days)) / 365)

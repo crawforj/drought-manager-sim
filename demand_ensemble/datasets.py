@@ -1,4 +1,4 @@
-"""Target-series and drought-stage-timeline assembly for the CC-DIDS ensemble.
+"""Target-series and drought-stage-timeline assembly for the demand forecast ensemble.
 
 System-wide daily demand (MGD) = system_b's WTP finished water (SCADA) +
 BEACON master-meter imports (roles dw_master + emergency). Roles
@@ -122,7 +122,7 @@ def load_target_series(proj_root: Path, cfg: dict, target: str = "system") -> pd
     """Daily demand series the whole ensemble trains against.
 
     target="system": SCADA production + AMI imports (full system demand)
-    target="ami":    AMI master-meter aggregate only (proposal 2b wording)
+    target="ami":    AMI master-meter aggregate only
     """
     ami = _ami_system_daily(proj_root, cfg)
     if target == "ami":
@@ -168,7 +168,7 @@ class StageSpan:
 
 
 def stage_history(cfg: dict) -> list[StageSpan]:
-    """Stage activations from the ccdids.stage_history config block.
+    """Stage activations from the demand_ensemble.stage_history config block.
 
     Validates the timeline hard: spans must not overlap, and only the LAST
     span may be open-ended (end: null). Without this, appending a new stage
@@ -178,23 +178,23 @@ def stage_history(cfg: dict) -> list[StageSpan]:
     when a stage changes.
     """
     spans = []
-    for item in cfg.get("ccdids", {}).get("stage_history", []):
+    for item in cfg.get("demand_ensemble", {}).get("stage_history", []):
         start = pd.to_datetime(item["start"]).date()
         end = pd.to_datetime(item["end"]).date() if item.get("end") else None
         if end is not None and end < start:
-            raise ValueError(f"ccdids.stage_history: span '{item['stage']}' "
+            raise ValueError(f"demand_ensemble.stage_history: span '{item['stage']}' "
                              f"ends {end} before it starts {start}")
         spans.append(StageSpan(stage=str(item["stage"]), start=start, end=end))
     spans = sorted(spans, key=lambda s: s.start)
     for prev, nxt in zip(spans, spans[1:]):
         if prev.end is None:
             raise ValueError(
-                f"ccdids.stage_history: span '{prev.stage}' (start {prev.start}) "
+                f"demand_ensemble.stage_history: span '{prev.stage}' (start {prev.start}) "
                 f"is open-ended (end: null) but '{nxt.stage}' starts "
                 f"{nxt.start} — close the earlier span with an end date")
         if prev.end >= nxt.start:
             raise ValueError(
-                f"ccdids.stage_history: spans '{prev.stage}' (ends {prev.end}) "
+                f"demand_ensemble.stage_history: spans '{prev.stage}' (ends {prev.end}) "
                 f"and '{nxt.stage}' (starts {nxt.start}) overlap")
     return spans
 

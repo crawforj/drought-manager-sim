@@ -1,4 +1,4 @@
-"""CC-DIDS Module 3 — behavioral response modeling.
+"""Behavioral response modeling.
 
 See docs/module3-behavioral-plan.md. Built bottom-up: weather_norm + its run
 on system-level WTP production first (no customer data needed); segmentation

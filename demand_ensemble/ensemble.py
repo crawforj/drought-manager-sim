@@ -1,9 +1,9 @@
-"""Ensemble combination for the CC-DIDS multi-model demand forecast.
+"""Ensemble combination for the multi-model demand forecast.
 
 Horizons 1-7: inverse-CV-RMSE weighted blend of SARIMA (baseline) and SVM
 (primary). Horizons 8-30: GBR seasonal extension alone. The drought-stage
-adjustment is applied to the combined series afterward (proposal Module 2b:
-"additive corrections to baseline forecasts when stages are active").
+adjustment is applied to the combined series afterward as additive
+corrections to the baseline forecast when a drought stage is active.
 """
 from __future__ import annotations
 

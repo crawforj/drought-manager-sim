@@ -1,4 +1,4 @@
-"""CC-DIDS drought-stage adjustment: behavioral elasticities as additive
+"""Drought-stage adjustment: behavioral elasticities as additive
 corrections.
 
 Applies a regime-delta contract:

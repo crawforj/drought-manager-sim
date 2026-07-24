@@ -1,13 +1,13 @@
-"""The one CC-DIDS forecast pipeline — shared by the live runner and backtest.
+"""The one demand-ensemble forecast pipeline — shared by the live runner and backtest.
 
-Before this module, run_ccdids_ensemble.py and _backtest_ccdids.py each
-carried their own copy of the covariate-assembly + three-member-fit +
-combine + drought-adjustment sequence, so any change to the live pipeline
-silently stopped being what the backtest measured (and what the PI
-calibration factors were derived from). Both entry points now call
-run_pipeline(); they differ only in what data they pass in (live vs
-truncated-to-issue-date) and what they do with the result (report/log vs
-score). PI calibration is deliberately NOT applied here — the live runner
+Before this module, the live runner and backtest script each carried their
+own copy of the covariate-assembly + three-member-fit + combine +
+drought-adjustment sequence, so any change to the live pipeline silently
+stopped being what the backtest measured (and what the PI calibration
+factors were derived from). Both entry points now call run_pipeline();
+they differ only in what data they pass in (live vs truncated-to-issue-date)
+and what they do with the result (report/log vs score). PI calibration is
+deliberately NOT applied here — the live runner
 applies it after, and the backtest must score raw member intervals before
 recomputing factors.
 """

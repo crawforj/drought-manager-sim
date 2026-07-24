@@ -11,7 +11,7 @@ full calibrate-then-generate methodology.
 
 Produces, at the repo root (the same layout the rest of this repo reads):
   - state/customer_history/YYYY-MM.parquet  (customer_store.py schema)
-  - state/entry_point_history.parquet        (nrw.py / ccdids AMI input)
+  - state/entry_point_history.parquet        (nrw.py / demand-ensemble AMI input)
   - production_history.csv                   (SCADA finished-water)
   - state/meter_zone_map.parquet             (account -> zone/system)
 
@@ -173,7 +173,7 @@ def weather_shock(dates: pd.DatetimeIndex, weather: pd.DataFrame) -> np.ndarray:
     fraction, so it applies correctly regardless of the synthetic
     population's size.
     """
-    from ccdids.covariates import hargreaves_et0_in
+    from demand_ensemble.covariates import hargreaves_et0_in
     lat_deg = 39.7   # generic Front Range latitude; et0 is not lat-sensitive enough to matter here
     doy = pd.Series(weather.index.dayofyear, index=weather.index)
     et0 = hargreaves_et0_in(weather["tmax_f"], weather["tmin_f"], doy, lat_deg)

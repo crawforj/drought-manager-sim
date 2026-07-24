@@ -100,7 +100,7 @@ cross-feature correlations, which is the most likely cause.
   interrupted time series, causal impact (Bayesian structural time series),
   double ML / R-learner heterogeneous treatment effects, k-means behavioral
   segmentation, response-profile analysis
-- `ccdids/` — SARIMA + SVM + gradient-boosted multi-model demand forecast
+- `demand_ensemble/` — SARIMA + SVM + gradient-boosted multi-model demand forecast
   ensemble, drought-stage adjustment
 - `nrw.py` — non-revenue-water daily water-balance auditing (AWWA M36
   ratio-of-sums convention)

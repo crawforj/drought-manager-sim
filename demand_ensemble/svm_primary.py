@@ -1,4 +1,4 @@
-"""CC-DIDS primary: SVM regression on AMI-derived daily totals, 1-7 day.
+"""Primary: SVM regression on AMI-derived daily totals, 1-7 day.
 
 Direct multi-horizon SVR (RBF): one model per *effective* horizon k predicts
 y[t+k] from features known at time t (demand lags/rolling means, calendar)

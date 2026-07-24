@@ -1,6 +1,6 @@
-"""Empirical prediction-interval calibration for the CC-DIDS ensemble.
+"""Empirical prediction-interval calibration for the demand forecast ensemble.
 
-The 2026 backtest showed miscalibrated intervals in both directions:
+A backtest once showed miscalibrated intervals in both directions:
 SARIMA/ensemble 80% bands covered 100% at 1-7d (too wide), GBR quantile
 bands covered 37-47% at 8-30d (too narrow). This module computes per-band
 scale factors from the backtest's standardized errors and applies them to
@@ -10,10 +10,10 @@ Standardized error u = (actual - point) / halfwidth, using the upper
 halfwidth when the error is positive and the lower when negative. The
 scale factor for nominal coverage q is quantile(|u|, q): multiplying both
 halfwidths by it makes the interval empirically cover q of the backtest
-errors. Factors live in state/ccdids_pi_calibration.json, written by
-_backtest_ccdids.py after each backtest run — so they are always derived
-from a *previous* evaluation, and each fresh backtest scores the raw
-(uncalibrated) member intervals before recomputing.
+errors. Factors live in state/pi_calibration.json, written after each
+backtest run — so they are always derived from a *previous* evaluation,
+and each fresh backtest scores the raw (uncalibrated) member intervals
+before recomputing.
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ import pandas as pd
 
 log = logging.getLogger(__name__)
 
-CALIBRATION_FILE = "ccdids_pi_calibration.json"
+CALIBRATION_FILE = "pi_calibration.json"
 BANDS = [(1, 7), (8, 14), (15, 30)]
 
 

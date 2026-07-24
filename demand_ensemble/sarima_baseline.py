@@ -1,4 +1,4 @@
-"""CC-DIDS baseline: SARIMA with weather covariates, 1-7 day horizons.
+"""Baseline: SARIMA with weather covariates, 1-7 day horizons.
 
 SARIMAX (statsmodels) on a contiguous daily DatetimeIndex with weekly
 seasonality (m=7) and exogenous [tmax_f, precip_in, et0_in]. Gaps in the

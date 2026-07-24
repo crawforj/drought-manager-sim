@@ -1,7 +1,7 @@
-"""Weather covariate assembly for the CC-DIDS ensemble.
+"""Weather covariate assembly for the demand forecast ensemble.
 
-Historical covariates come from the GHCND cache (WHEAT RIDGE 2 — the
-proposal's "nearby NOAA station"); reference evapotranspiration is estimated
+Historical covariates come from the GHCND cache (a real, nearby NOAA
+station); reference evapotranspiration is estimated
 with Hargreaves-Samani from tmax/tmin because GHCND stations do not report
 ET directly. Future covariates use the NWS point forecast for days it covers
 and day-of-year climatology beyond.

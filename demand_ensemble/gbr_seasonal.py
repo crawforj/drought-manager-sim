@@ -1,4 +1,4 @@
-"""CC-DIDS seasonal extension: gradient-boosted regression, 8-30 day outlooks.
+"""Seasonal extension: gradient-boosted regression, 8-30 day outlooks.
 
 Conditions->demand regression (not autoregressive — demand lags are stale by
 day 8): calendar encoding + target-day weather (NWS <=7d, climatology beyond)

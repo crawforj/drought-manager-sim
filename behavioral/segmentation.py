@@ -159,22 +159,20 @@ def segment(daily: pd.DataFrame, k_range: range = range(2, 9),
     """Stratify mega-users and vacant accounts out, cluster the rest on usage
     SHAPE, pick k by silhouette.
 
-    SHAPE-ONLY metric (real-data lesson, 2026-07-16 pilot): size features in
-    the distance metric drown out behavior — the pilot's size-inclusive "best"
+    SHAPE-ONLY metric (a real-data lesson from an early pilot): size features
+    in the distance metric drown out behavior — a size-inclusive "best"
     clustering was a trivial vacant-vs-everyone split (silhouette 0.74 but
-    meaningless), while shape-only k=3 recovered the proposal's expected
-    low-base vs heavy-irrigator structure among SAME-SIZED accounts (230 at
-    7.8x summer ratio vs 250 at 2.4x). Size lives in the strata and in
-    reporting, never in the metric; vacancy gets its own stratum for the same
-    reason.
+    meaningless), while shape-only k=3 recovered the expected low-base
+    vs. heavy-irrigator structure among SAME-SIZED accounts (230 at 7.8x
+    summer ratio vs 250 at 2.4x). Size lives in the strata and in reporting,
+    never in the metric; vacancy gets its own stratum for the same reason.
 
-    k selection (updated 2026-07-16): raw argmax-silhouette tends to pick the
-    coarsest split available (k=2 narrowly beat k=3/k=4 on live data, 0.310 vs
-    0.293/0.294) even though the proposal's own domain theory (Drought Mgmt
-    Plan Tables 4/5 + proposal Sec 3b) expects at least three meaningful
-    archetypes: low-base year-round, summer-dominant irrigators, and steady
-    commercial. Picking the bare silhouette argmax under-segments the report
-    for a marginal, likely-noise difference in score. Instead: among all k
+    k selection: raw argmax-silhouette tends to pick the coarsest split
+    available (k=2 narrowly beat k=3/k=4 on live data, 0.310 vs 0.293/0.294)
+    even though domain theory expects at least three meaningful archetypes:
+    low-base year-round, summer-dominant irrigators, and steady commercial.
+    Picking the bare silhouette argmax under-segments the report for a
+    marginal, likely-noise difference in score. Instead: among all k
     whose silhouette is within `silhouette_tolerance` of the best score, take
     the LARGEST k — more operationally useful granularity at a small, bounded
     cost in cluster separation, not an arbitrary override of the metric.
