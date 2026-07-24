@@ -1,0 +1,59 @@
+{
+  "price_elasticity": {
+    "n_tier1": 2949,
+    "n_tier23": 6051,
+    "tier1_step_pct": -14.071,
+    "tier23_step_pct": -14.9,
+    "did_effect_mgd": -0.5252,
+    "did_p_value": 0.0,
+    "parallel_trends_ok": true,
+    "placebo_clean": true,
+    "targets": {
+      "tier1_step_pct": -10.167,
+      "tier23_step_pct": -9.739,
+      "did_effect_mgd": -0.2765,
+      "did_p_value": 0.0329,
+      "parallel_trends_ok": false
+    }
+  },
+  "segmentation": {
+    "k": 2,
+    "silhouette": 0.4157,
+    "top_consumers_volume_share_pct": 25.96,
+    "vacant_share_pct": 3.43,
+    "targets": {
+      "segmentation_k": 3,
+      "segmentation_silhouette": 0.3397,
+      "top_consumers_volume_share_pct": 25.47,
+      "vacant_share_pct": 3.21
+    }
+  },
+  "nrw": {
+    "system_a": {
+      "correlation": 0.9881,
+      "target": 0.9884
+    },
+    "system_b": {
+      "correlation": 0.919,
+      "target": 0.9387
+    }
+  },
+  "demand_ensemble": {
+    "demand_mean_mgd": 4.2788,
+    "demand_std_mgd": 1.6735,
+    "demand_acf": {
+      "1": 0.6934,
+      "7": 0.4766,
+      "14": 0.5234
+    },
+    "targets": {
+      "demand_mean_mgd": 10.7292,
+      "demand_std_mgd": 6.8277,
+      "demand_acf": {
+        "1": 0.6399,
+        "7": 0.6209,
+        "14": 0.605
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+name: Refresh synthetic data
+
+# Regenerates the synthetic customer panel + system aggregate series with a
+# fresh random seed, re-validates it against the real utility's calibrated
+# targets (synth/validate.py), updates the README's validation table, and
+# commits the result -- so the published dataset periodically re-randomizes
+# instead of staying static forever, while the README table always reflects
+# whatever data is actually in the repo.
+#
+# Deliberately does NOT touch synth/geography.py's output (the fictional
+# town/zones/site table stay fixed) -- only the customer panel and derived
+# series change. Uses only data already shipped in this repo (weather comes
+# from the committed cache for this repo's fixed date range) -- no secrets,
+# no real API credentials, no private-repo dependency.
+
+on:
+  schedule:
+    # 06:00 UTC on the 1st of every month. Adjust freely -- this is a
+    # portfolio demo, not a production data pipeline; there's no
+    # correctness reason it has to be monthly.
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+    inputs:
+      seed_offset:
+        description: "Added to the base seed for this run (change to force a different draw on manual re-run)"
+        required: false
+        default: "0"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (with LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Compute this run's seed
+        id: seed
+        run: |
+          BASE=20260723
+          OFFSET="${{ github.event.inputs.seed_offset || '0' }}"
+          SEED=$((BASE + ${{ github.run_number }} + OFFSET))
+          echo "seed=$SEED" >> "$GITHUB_OUTPUT"
+
+      - name: Regenerate the synthetic panel
+        run: python -m synth.generate_panel --seed ${{ steps.seed.outputs.seed }}
+
+      - name: Run the test suite against the new data
+        run: python -m pytest tests/ -q
+
+      - name: Validate against calibrated targets
+        run: python -m synth.validate
+
+      - name: Update README's validation table
+        run: python -m synth.update_readme
+
+      - name: Commit and push if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes (unexpected with a new seed, but nothing to do)."
+            exit 0
+          fi
+          git commit -m "Scheduled data refresh (seed ${{ steps.seed.outputs.seed }}, run ${{ github.run_number }})"
+          git push

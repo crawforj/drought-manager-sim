@@ -18,6 +18,7 @@ Quick links to the synthetic data itself:
 - [`state/gis/pressure_zones.shp`](state/gis/pressure_zones.shp) — fictional pressure-zone shapefile (+ `.dbf`/`.shx`/`.prj`)
 - [`config.yaml`](config.yaml) — fictional master-meter site table, pricing tiers, model config
 - [`state/weather_cache.csv`](state/weather_cache.csv) — real public NOAA weather data used to drive the synthetic demand series
+- [`synth/validation_results.json`](synth/validation_results.json) — full precision behind the validation table below (account counts, exact p-values, etc.), regenerated alongside it
 
 All `.parquet` files are stored via Git LFS — `git clone` resolves them automatically; the "Raw" button on GitHub shows only the LFS pointer, not the data.
 
@@ -63,18 +64,29 @@ Percentages/correlations/ratios are the numbers that should match; absolute
 volumes (MGD, account counts) scale down with the smaller synthetic
 population and aren't expected to match 1:1.
 
+This table is regenerated automatically by
+[`.github/workflows/refresh-data.yml`](.github/workflows/refresh-data.yml)
+every time the synthetic dataset refreshes — see [Keeping the data
+fresh](#keeping-the-data-fresh) below. `python -m synth.validate` reproduces
+it locally.
+
+<!-- VALIDATION_TABLE_START -->
 | Metric | Real | Synthetic |
 |---|---:|---:|
-| Price-elasticity DiD: tier1 step (% of weather-expected demand) | -10.2% | -15.1% |
-| Price-elasticity DiD: tier2/3 step (% of weather-expected demand) | -9.7% | -14.6% |
-| DiD effect sign / significance | negative, p=0.033 | negative, p<0.0001 |
-| Segmentation: top-consumers volume share | 1.0% of accounts → 25.5% of volume | 1.0% → 25.2% |
-| Segmentation: vacant/intermittent share | 3.2% | 3.2% |
+| Price-elasticity DiD: tier1 step (% of weather-expected demand) | -10.2% | -14.1% |
+| Price-elasticity DiD: tier2/3 step (% of weather-expected demand) | -9.7% | -14.9% |
+| DiD effect sign / significance | negative, p=0.033 (significant) | negative, p=0.0000 (significant) |
+| Segmentation: top-consumers volume share | 1.0% of accounts → 25.5% of volume | 1.0% → 26.0% |
+| Segmentation: vacant/intermittent share | 3.2% | 3.4% |
 | Segmentation cluster count (k) | 3 | 2 |
 | NRW correlation, system A (master-meter-summed input) | 0.988 | 0.988 |
-| NRW correlation, system B (WTP production input) | 0.940 | 0.915 |
-| Demand forecast series: mean (MGD) | 10.7 | 4.3 (≈ population ratio) |
-| Demand forecast series: autocorrelation (lag 1 / 7 / 14) | 0.64 / 0.62 / 0.61 | 0.70 / 0.49 / 0.54 |
+| NRW correlation, system B (WTP production input) | 0.939 | 0.919 |
+| Demand forecast series: mean (MGD) | 10.7 | 4.3 |
+| Demand forecast series: autocorrelation (lag 1 / 7 / 14) | 0.64 / 0.62 / 0.60 | 0.69 / 0.48 / 0.52 |
+<!-- VALIDATION_TABLE_END -->
+
+*Last refreshed: see the commit history of this file — every refresh commits
+an updated table alongside the new data.*
 
 **Where it's close**: NRW correlations, segmentation's top-consumer and
 vacant-account shares, and the price-elasticity effect's sign/significance
@@ -82,17 +94,45 @@ all land close to the real findings. Demand-series volatility scales with
 population size as expected.
 
 **Where it doesn't match exactly, and why**: the price-elasticity step
-percentages run consistently hotter than their calibrated targets (by a
-roughly proportional amount for both tiers, so the *difference between
-them* — the actual causal estimate — stays much closer to the real value
-than either tier's raw percentage does). During development, increasing
-the synthetic population from 3,000 to 9,000 accounts closed a large
-fraction of that gap, consistent with ordinary estimator variance shrinking
-with sample size rather than a construction flaw — a full-scale run at
-real population size would likely close it further. Segmentation recovers
-2 clusters instead of 3; the synthetic account generator preserves each
-behavioral feature's real marginal distribution but not the real
-cross-feature correlations, which is the most likely cause.
+percentages run consistently hotter than their calibrated targets. Some of
+that is the account generator itself (see below); some of it is a
+methodology difference in how this table is produced. `synth/generate_panel.py`
+injects the treatment effect using each account's TRUE tier assignment (by
+volume rank). But `synth/validate.py` — the script that produces the table
+above, and the one this repo's automated refresh runs — can only classify
+tier exposure the way anyone cloning this repo actually could: the usage-
+volume PROXY method (a flat gal/month breakpoint), not the ground-truth
+column. That proxy is a cruder classifier, so the *validation* number is
+naturally noisier than the *injection* was accurate — this is really
+measuring "how well does a real, imperfect classification method recover
+the truth," which is itself a realistic thing to demonstrate. Separately,
+segmentation recovers 2 clusters instead of 3; the synthetic account
+generator preserves each behavioral feature's real marginal distribution
+but not the real cross-feature correlations, which is the most likely
+cause of that specific gap.
+
+## Keeping the data fresh
+
+[`.github/workflows/refresh-data.yml`](.github/workflows/refresh-data.yml)
+runs on the 1st of every month (and on-demand via the Actions tab's "Run
+workflow" button): it regenerates the customer panel with a new random
+seed, re-runs the test suite, re-validates against the calibrated targets,
+rewrites the table above, and commits + pushes the result — all using only
+data already shipped in this repo (the weather cache covers this repo's
+fixed date range, so no API token or other secret is needed). The
+fictional geography (`synth/geography.py`'s output — zone layout, site
+addresses) is deliberately NOT regenerated each cycle, only the customer
+panel and the series derived from it.
+
+To trigger a refresh manually: **Actions → Refresh synthetic data → Run
+workflow**. To reproduce the same steps locally:
+
+```bash
+python -m synth.generate_panel --seed <any-integer>
+python -m pytest tests/
+python -m synth.validate
+python -m synth.update_readme
+```
 
 ## Repo layout
 
@@ -109,7 +149,9 @@ cross-feature correlations, which is the most likely cause.
 - `pressure_zones.py`, `customer_store.py`, `data_quality.py`,
   `weather_history.py` — supporting infrastructure
 - `synth/` — the calibrate-then-generate synthetic data pipeline described
-  above
+  above, plus `validate.py`/`update_readme.py` for the automated refresh
+- `.github/workflows/refresh-data.yml` — the scheduled data refresh (see
+  [Keeping the data fresh](#keeping-the-data-fresh))
 - `state/`, `config.yaml`, `production_history.csv` — the shipped synthetic
   dataset itself
 
@@ -138,6 +180,6 @@ Real per-account meter-technology/share-count tier classification
 on real per-account GIS data that was never part of this synthetic dataset.
 `behavioral/did.py`'s `classify_tier_exposure(source="real")` path will
 raise a clear `ImportError` if called without it; `source="proxy"` (usage-
-volume-based) works standalone, and the shipped synthetic panel already
-carries its own ground-truth tier assignment for the DiD demonstration
-above.
+volume-based) is what `synth/validate.py` and the automated refresh
+workflow both use, since it's the only classification method that works
+from data actually shipped in this repo.
